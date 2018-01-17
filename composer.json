@@ -1,0 +1,15 @@
+{
+    "name": "ronanchilvers/silex-sessions",
+    "description": "Client side encrypted sessions for Silex",
+    "type": "library",
+    "require": {
+        "defuse/php-encryption": "^2.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ronan Chilvers",
+            "email": "ronan@thelittledot.com"
+        }
+    ]
+}
