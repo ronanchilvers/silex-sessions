@@ -11,5 +11,11 @@
             "name": "Ronan Chilvers",
             "email": "ronan@thelittledot.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ronanchilvers\\Silex\\Sessions\\": "src/"
+        }
+    },
+
 }
