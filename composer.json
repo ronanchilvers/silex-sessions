@@ -18,6 +18,6 @@
         "defuse/php-encryption": "^2.1"
     },
     "suggests": {
-        "symfony/console": "If you want to use the session:key:generate command"
+        "knplabs/console-service-provider": "If you want to use the session:key:generate command"
     }
 }

@@ -4,6 +4,7 @@ namespace Ronanchilvers\Silex\Sessions;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Ronanchilvers\Silex\Sessions\Console\Command\GenerateKeyCommand;
 use Ronanchilvers\Silex\Sessions\SessionManager;
 use Silex\Api\BootableProviderInterface;
 use Silex\Application;
@@ -36,6 +37,14 @@ class SessionProvider implements
         $pimple['silex.session'] = function ($c) {
             return $c['silex.session.manager']->getSession();
         };
+
+        if (isset($pimple['console'])) {
+            $pimple->extend('console', function ($console, $c) {
+                $console->add(new GenerateKeyCommand());
+
+                return $console;
+            });
+        }
     }
 
     /**
@@ -43,6 +52,7 @@ class SessionProvider implements
      */
     public function boot(Application $app)
     {
+
         $app->before(function (Request $request) use ($app) {
             $app['silex.session.manager']->setSessionFromRequest($request);
         }, Application::EARLY_EVENT);
