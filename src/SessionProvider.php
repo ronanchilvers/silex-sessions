@@ -7,6 +7,8 @@ use Pimple\ServiceProviderInterface;
 use Ronanchilvers\Silex\Sessions\SessionManager;
 use Silex\Api\BootableProviderInterface;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -23,12 +25,16 @@ class SessionProvider implements
      */
     public function register(Container $pimple)
     {
-        $pimple['session.manager'] = function () {
-            return new SessionManager();
+        $pimple['silex.session.options'] = [];
+
+        $pimple['silex.session.manager'] = function ($c) {
+            return new SessionManager(
+                $c['silex.session.options']
+            );
         };
 
-        $pimple['session'] = function ($c) {
-            return $c['session.manager']->create();
+        $pimple['silex.session'] = function ($c) {
+            return $c['silex.session.manager']->getSession();
         };
     }
 
@@ -38,15 +44,11 @@ class SessionProvider implements
     public function boot(Application $app)
     {
         $app->before(function (Request $request) use ($app) {
-            $manager = $app['session.manager'];
-            // @TODO Remove var_dump
-            var_dump('before'); exit();
+            $app['silex.session.manager']->setSessionFromRequest($request);
         }, Application::EARLY_EVENT);
 
         $app->after(function (Request $request, Response $response) use ($app) {
-            $manager = $app['session.manager'];
-            // @TODO Remove var_dump
-            var_dump('here'); exit();
-        }, Application::EARLY_EVENT);
+            $app['silex.session.manager']->addCookieToResponse($response);
+        }, Application::LATE_EVENT);
     }
 }

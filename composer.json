@@ -2,9 +2,6 @@
     "name": "ronanchilvers/silex-sessions",
     "description": "Client side encrypted sessions for Silex",
     "type": "library",
-    "require": {
-        "defuse/php-encryption": "^2.1"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -16,5 +13,11 @@
         "psr-4": {
             "Ronanchilvers\\Silex\\Sessions\\": "src/"
         }
+    },
+    "require": {
+        "defuse/php-encryption": "^2.1"
+    },
+    "suggests": {
+        "symfony/console": "If you want to use the session:key:generate command"
     }
 }
