@@ -26,16 +26,16 @@ class SessionProvider implements
      */
     public function register(Container $pimple)
     {
-        $pimple['silex.session.options'] = [];
+        $pimple['session.options'] = [];
 
-        $pimple['silex.session.manager'] = function ($c) {
+        $pimple['session.manager'] = function ($c) {
             return new SessionManager(
-                $c['silex.session.options']
+                $c['session.options']
             );
         };
 
-        $pimple['silex.session'] = function ($c) {
-            return $c['silex.session.manager']->getSession();
+        $pimple['session'] = function ($c) {
+            return $c['session.manager']->getSession();
         };
 
         if (isset($pimple['console'])) {
@@ -54,11 +54,11 @@ class SessionProvider implements
     {
 
         $app->before(function (Request $request) use ($app) {
-            $app['silex.session.manager']->setSessionFromRequest($request);
+            $app['session.manager']->setSessionFromRequest($request);
         }, Application::EARLY_EVENT);
 
         $app->after(function (Request $request, Response $response) use ($app) {
-            $app['silex.session.manager']->addCookieToResponse($response);
+            $app['session.manager']->addCookieToResponse($response);
         }, Application::LATE_EVENT);
     }
 }
