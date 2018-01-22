@@ -34,10 +34,6 @@ class SessionProvider implements
             );
         };
 
-        // $pimple['session'] = function ($c) {
-        //     return $c['session.manager']->getSession();
-        // };
-
         if (isset($pimple['console'])) {
             $pimple->extend('console', function ($console, $c) {
                 $console->add(new GenerateKeyCommand());
