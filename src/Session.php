@@ -156,7 +156,7 @@ class Session
      * @return array
      * @author Ronan Chilvers <ronan@d3r.com>
      */
-    public function getFlash($type)
+    public function getFlashes($type)
     {
         $this->load();
         if (!isset($this->flashes[$type])) {
