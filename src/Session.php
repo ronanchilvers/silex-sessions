@@ -157,6 +157,7 @@ class Session
      */
     public function remove($key)
     {
+        $this->load();
         if (isset($this->data[$key])) {
             unset($this->data[$key]);
         }
