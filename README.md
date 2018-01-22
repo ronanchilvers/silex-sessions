@@ -1,7 +1,5 @@
 # silex-sessions
 
-### DEVELOPMENT PACKAGE - NOT READY FOR USE
-
 This package provides client side, cookie based sessions for Silex. It is a standalone implementation and does not use Symfony's session mechanism. Session data is stored in a cookie allowing excellent horizontal scalability. The serialized data is encryption using [defuse/php-encryption](https://github.com/defuse/php-encryption) to ensure it is safe in the wild.
 
 ## Installation
