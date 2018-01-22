@@ -150,6 +150,19 @@ class Session
     }
 
     /**
+     * Remove a key from the session
+     *
+     * @param string $key
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function remove($key)
+    {
+        if (isset($this->data[$key])) {
+            unset($this->data[$key]);
+        }
+    }
+
+    /**
      * Get the flash messages for a given type
      *
      * @param string $type
