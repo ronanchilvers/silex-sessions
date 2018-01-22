@@ -28,15 +28,15 @@ class SessionProvider implements
     {
         $pimple['session.options'] = [];
 
-        $pimple['session.manager'] = function ($c) {
-            return new SessionManager(
+        $pimple['session'] = function ($c) {
+            return new Session(
                 $c['session.options']
             );
         };
 
-        $pimple['session'] = function ($c) {
-            return $c['session.manager']->getSession();
-        };
+        // $pimple['session'] = function ($c) {
+        //     return $c['session.manager']->getSession();
+        // };
 
         if (isset($pimple['console'])) {
             $pimple->extend('console', function ($console, $c) {
@@ -54,11 +54,11 @@ class SessionProvider implements
     {
 
         $app->before(function (Request $request) use ($app) {
-            $app['session.manager']->setSessionFromRequest($request);
+            $app['session']->setRequest($request);
         }, Application::EARLY_EVENT);
 
         $app->after(function (Request $request, Response $response) use ($app) {
-            $app['session.manager']->addCookieToResponse($response);
+            $app['session']->addCookieToResponse($response);
         }, Application::LATE_EVENT);
     }
 }
