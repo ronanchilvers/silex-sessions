@@ -35,6 +35,30 @@ There are various configuration options you can use, mostly to tweak the cookie 
  - cookie.http.only - Whether the cookie should only be available via HTTP
  - encryption.key - The secure encryption key to use for encrypting and decrypting the cookie payload
 
+## Usage
+
+```SessionProvider``` registers a couple of services on the container:
+
+ - A ```session``` service, the standard session interface. This service has the usual ```get()```, ```set()```, ```addFlash()``` and ```getFlash()``` methods available.
+ - If you're using [```knplabs/console-service-provider```](https://github.com/KnpLabs/ConsoleServiceProvider) you'll also get a ```session:key:generate``` command to use for key generation. **NB:** Make sure that you register the console provider *before* the session provider.
+
+```php
+// Set session variables
+$app['session']->set('name', 'Fred Bloggs');
+$app['session']->set('stuff', ['data' => 123]);
+$app['session']->addFlash('notice', 'Yeehaa!');
+
+// Get them out again
+$name = $app['session']->get('name');
+// With a default
+$stuff = $app['session']->get('stuff', []);
+
+// Get the flashes for a particular type
+foreach ($app['session']->getFlashes('notice') as $message) {
+    echo "<p>Notice : {$message}</p>";
+}
+```
+
 ## Encryption Key Generation
 
 Generating a decently secure encryption key is important to maintain the security of the session data. This package provides a [Symfony console](https://github.com/symfony/console) command to generate and output an ASCII safe key which you can store in a config file. The console command is added automatically if you're using [knplabs/console-service-provider](https://github.com/KnpLabs/ConsoleServiceProvider).
