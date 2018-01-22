@@ -1,0 +1,97 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block page_title 'Sessions' %}
+
+{% block toolbar %}
+
+    {% set icon %}
+        {{ include('@Sessions/icon.svg') }}
+        <span class="sf-toolbar-value">Session</span>
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Data Keys</b>
+            <span class="sf-toolbar-status">{{ collector.keyCount }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Session Flashes</b>
+            <span class="sf-toolbar-status">{{ collector.flashCount }}</span>
+        </div>
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">{{ include('@Sessions/icon.svg') }}</span>
+        <strong>Sessions</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Sessions</h2>
+
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.keyCount }}</span>
+            <span class="label">Data Keys</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.flashCount }}</span>
+            <span class="label">Flash Message Count</span>
+        </div>
+    </div>
+
+    <h2>Session Data</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="key">Key</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key,value in collector.data %}
+            <tr>
+                <th>{{ key }}</th>
+                <td>{{ dump(value) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Session Flashes</h2>
+
+    {% if 0 < collector.flashes|length %}
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="key">Key</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type,messages in collector.flashes %}
+            <tr>
+                <th>Type</th>
+                <th>{{ type }}</th>
+            <tr>
+            {% for message in messages %}
+            <tr>
+                <td></td>
+                <td>{{ message }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty">
+        <p>No flashes found</p>
+    </div>
+    {% endif %}
+
+{% endblock %}

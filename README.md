@@ -2,6 +2,8 @@
 
 ![Beta Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat-square)
 
+[cookie icon by Rashida Luqman Kheriwala from the Noun Project](https://thenounproject.com/search/?q=cookie&i=119497)
+
 This package provides client side, cookie based sessions for Silex. It is a standalone implementation and does not use Symfony's session mechanism. Session data is stored in a cookie allowing excellent horizontal scalability. The serialized data is encryption using [defuse/php-encryption](https://github.com/defuse/php-encryption) to ensure it is safe in the wild.
 
 ## Installation

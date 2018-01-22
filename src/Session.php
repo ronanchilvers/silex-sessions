@@ -65,6 +65,39 @@ class Session
     }
 
     /**
+     * Get the configured options for this session
+     *
+     * @return array
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Peek at the session data leaving it unchanged
+     *
+     * @return array
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function peek()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Peek at the flash message data leaving it unchanged
+     *
+     * @return array
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function peekFlashes()
+    {
+        return $this->flashes;
+    }
+
+    /**
      * Set the request for this session
      *
      * @param Symfony\Component\HttpFoundation\Request
