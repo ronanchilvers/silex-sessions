@@ -61,6 +61,19 @@ foreach ($app['session']->getFlashes('notice') as $message) {
 }
 ```
 
+## Symfony Web Profiler Support
+
+A data collector for the Symfony Web Profiler is included. To use it you need to first add the ```silex/web-profiler``` package to your project. Then enable the web profiler providers like so:
+
+```php
+$app->register(new Silex\Provider\WebProfilerServiceProvider(), [
+    'profiler.cache_dir' => '&lt;a directory somewhere&gt;',
+]);
+$app->register(new Ronanchilvers\Silex\Sessions\SessionWebProfilerProvider());
+```
+
+You should then start seeing a new button on the profiler toolbar and a new panel showing the session contents.
+
 ## Encryption Key Generation
 
 Generating a decently secure encryption key is important to maintain the security of the session data. This package provides a [Symfony console](https://github.com/symfony/console) command to generate and output an ASCII safe key which you can store in a config file. The console command is added automatically if you're using [knplabs/console-service-provider](https://github.com/KnpLabs/ConsoleServiceProvider).
