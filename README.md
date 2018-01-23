@@ -2,6 +2,8 @@
 
 ![Beta Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat-square)
 
+[cookie icon by Rashida Luqman Kheriwala from the Noun Project](https://thenounproject.com/search/?q=cookie&i=119497)
+
 This package provides client side, cookie based sessions for Silex. It is a standalone implementation and does not use Symfony's session mechanism. Session data is stored in a cookie allowing excellent horizontal scalability. The serialized data is encryption using [defuse/php-encryption](https://github.com/defuse/php-encryption) to ensure it is safe in the wild.
 
 ## Installation
@@ -58,6 +60,19 @@ foreach ($app['session']->getFlashes('notice') as $message) {
     echo "<p>Notice : {$message}</p>";
 }
 ```
+
+## Symfony Web Profiler Support
+
+A data collector for the Symfony Web Profiler is included. To use it you need to first add the ```silex/web-profiler``` package to your project. Then enable the web profiler providers like so:
+
+```php
+$app->register(new Silex\Provider\WebProfilerServiceProvider(), [
+    'profiler.cache_dir' => '&lt;a directory somewhere&gt;',
+]);
+$app->register(new Ronanchilvers\Silex\Sessions\SessionWebProfilerProvider());
+```
+
+You should then start seeing a new button on the profiler toolbar and a new panel showing the session contents.
 
 ## Encryption Key Generation
 

@@ -18,6 +18,7 @@
         "defuse/php-encryption": "^2.1"
     },
     "suggests": {
-        "knplabs/console-service-provider": "If you want to use the session:key:generate command"
+        "knplabs/console-service-provider": "If you want to use the session:key:generate command",
+        "silex/web-profiler": "If you want to use the web profiler data collector",
     }
 }
