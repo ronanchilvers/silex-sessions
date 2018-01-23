@@ -67,7 +67,7 @@ A data collector for the Symfony Web Profiler is included. To use it you need to
 
 ```php
 $app->register(new Silex\Provider\WebProfilerServiceProvider(), [
-    'profiler.cache_dir' => '&lt;a directory somewhere&gt;',
+    'profiler.cache_dir' => 'a directory somewhere',
 ]);
 $app->register(new Ronanchilvers\Silex\Sessions\SessionWebProfilerProvider());
 ```
