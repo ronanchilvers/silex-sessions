@@ -19,7 +19,7 @@ class SessionWebProfilerProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $pimple['data_collectors'] = $pimple->extend('data_collectors', function($collectors, $pimple) {
-            $collectors['sessions'] = function ($pimple) {
+            $collectors['session'] = function ($pimple) {
                 return new SessionDataCollector(
                     $pimple['session']
                 );
@@ -29,10 +29,10 @@ class SessionWebProfilerProvider implements ServiceProviderInterface
         });
         $pimple['twig.loader.filesystem']->addPath(
             __DIR__ . '/../resources/views',
-            'Sessions'
+            'Session'
         );
         $pimple->extend('data_collector.templates', function ($templates) {
-            $templates[] = ['sessions', '@Sessions/sessions.html.twig'];
+            $templates[] = ['session', '@Session/session.html.twig'];
 
             return $templates;
         });

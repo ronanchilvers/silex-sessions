@@ -1,11 +1,11 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
-{% block page_title 'Sessions' %}
+{% block page_title 'Session' %}
 
 {% block toolbar %}
 
     {% set icon %}
-        {{ include('@Sessions/icon.svg') }}
+        {{ include('@Session/icon.svg') }}
         <span class="sf-toolbar-value">Session</span>
     {% endset %}
 
@@ -25,13 +25,13 @@
 
 {% block menu %}
     <span class="label">
-        <span class="icon">{{ include('@Sessions/icon.svg') }}</span>
-        <strong>Sessions</strong>
+        <span class="icon">{{ include('@Session/icon.svg') }}</span>
+        <strong>Session</strong>
     </span>
 {% endblock %}
 
 {% block panel %}
-    <h2>Sessions</h2>
+    <h2>Session</h2>
 
     <div class="metrics">
         <div class="metric">

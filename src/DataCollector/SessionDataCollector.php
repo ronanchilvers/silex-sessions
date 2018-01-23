@@ -48,7 +48,7 @@ class SessionDataCollector extends DataCollector
      */
     public function getName()
     {
-        return 'sessions';
+        return 'session';
     }
 
     /**
