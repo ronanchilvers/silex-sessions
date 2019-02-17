@@ -52,13 +52,14 @@ class Session
     public function __construct($options = [])
     {
         $this->options = array_merge([
-                'cookie.name' => 'session.cookie',
-                'cookie.expire' => 0,
-                'cookie.path' => '/',
-                'cookie.domain' => null,
-                'cookie.secure' => false,
+                'cookie.name'      => 'session.cookie',
+                'cookie.expire'    => 0,
+                'cookie.path'      => '/',
+                'cookie.domain'    => null,
+                'cookie.secure'    => false,
                 'cookie.http.only' => true,
-                'encryption.key' => false,
+                'cookie.version'   => 1,
+                'encryption.key'   => false,
             ],
             $options
         );
@@ -118,7 +119,8 @@ class Session
     {
         $this->load();
         $data = serialize([
-            'data' => $this->data,
+            'version' => $this->getOption('cookie.version'),
+            'data'    => $this->data,
             'flashes' => $this->flashes
         ]);
         $data = Crypto::encrypt(
@@ -275,8 +277,11 @@ class Session
                 );
                 $data = unserialize($data);
                 if (!is_null($data)) {
-                    $this->data = $data['data'];
-                    $this->flashes = $data['flashes'];
+                    $version = $this->getOption('cookie.version', 1);
+                    if (isset($data['version']) && $version == $data['version']) {
+                        $this->data = $data['data'];
+                        $this->flashes = $data['flashes'];
+                    }
                 }
             } catch (WrongKeyOrModifiedCiphertextException $ex) {
                 // Session is killed
